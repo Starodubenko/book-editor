@@ -5,7 +5,7 @@ import {routerMiddleware, RouterState} from 'connected-react-router'
 import {createRouterReducer} from './router';
 import {authorSlice} from './appReducers';
 
-interface AppState {
+export interface AppState {
     router: RouterState,
     // books: [],
     // authors: [],

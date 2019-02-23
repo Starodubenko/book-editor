@@ -5,7 +5,7 @@ import {AuthorStateActions} from "../modules/author";
 export class App extends Component {
   render() {
     return (
-      <div className={s.root}>
+      <div className={s.Root}>
         <AuthorStateActions number={1} />
       </div>
     );

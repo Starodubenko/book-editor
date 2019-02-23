@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import s from './AuthorStateActions.module.scss';
 import {authorSlice} from "../../state";
 import {connect} from "react-redux";
+import {AppState} from "../../../../boot";
 
 interface InputProps {
     number: number;
     string?: string;
 }
 
-interface GlobalState {}
+interface StateProps {}
 
 interface DispatchProps {
     create: any;
@@ -16,7 +17,7 @@ interface DispatchProps {
     remove: any;
 }
 
-type Props = GlobalState & DispatchProps & InputProps
+type Props = StateProps & DispatchProps & InputProps
 
 interface OwnState {}
 
@@ -50,7 +51,7 @@ export class AuthorStateActionsComponent extends Component<Props, OwnState> {
     }
 }
 
-const mapStateToProps = (state: GlobalState, ownProps: InputProps): GlobalState => {
+const mapStateToProps = (state: AppState, ownProps: InputProps): StateProps => {
     return {};
 };
 
@@ -58,4 +59,4 @@ const mapDispatchToProps: DispatchProps = {
     ...authorSlice.actions
 };
 
-export const AuthorStateActions = connect<GlobalState, DispatchProps, InputProps>(mapStateToProps, mapDispatchToProps)(AuthorStateActionsComponent);
+export const AuthorStateActions = connect<StateProps, DispatchProps, InputProps, AppState>(mapStateToProps, mapDispatchToProps)(AuthorStateActionsComponent);
