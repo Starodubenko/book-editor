@@ -1,16 +1,10 @@
 import {History} from 'history';
 import {configureStore, getDefaultMiddleware} from 'redux-starter-kit';
 import {combineReducers} from 'redux';
-import {routerMiddleware, RouterState} from 'connected-react-router'
+import {routerMiddleware} from 'connected-react-router'
+import {AppState} from "@app/common";
 import {createRouterReducer} from './router';
 import {authorSlice} from './appReducers';
-
-export interface AppState {
-    router: RouterState,
-    // books: [],
-    // authors: [],
-    // publishers: [],
-}
 
 export function configureAppStore(history: History, preloadedState: any = {}) {
     const rootReducer = combineReducers<AppState>({

@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux";
+import {AppState} from "@app/common";
 import s from './AuthorStateActions.module.scss';
 import {authorSlice} from "../../state";
-import {connect} from "react-redux";
-import {AppState} from "../../../../boot";
+
 
 interface InputProps {
     number: number;

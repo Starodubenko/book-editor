@@ -1,9 +1,9 @@
 import {createSlice, PayloadAction} from 'redux-starter-kit';
 import {CaseReducer, CaseReducersMapObject} from "redux-starter-kit/src/createReducer";
 import {Action} from "redux-actions";
+import {AbstractEntity} from "@app/common";
 import {AuthorState} from "../model/AuthorState.model";
 import {Author} from "../model/Author.model";
-import {AbstractEntity} from "../../common/model/AbstractEntity.model";
 
 export interface IAuthorActionHandlers extends CaseReducersMapObject {
     create: CaseReducer<AuthorState, Action<Author>>;

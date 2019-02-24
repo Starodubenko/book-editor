@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@app/common": ["src/modules/common"],
+      "@app/author": ["src/modules/author"],
+      "@app/book": ["src/modules/book"],
+      "@app/publisher": ["src/modules/publisher"],
+      "@app/page": ["src/modules/page"]
+    }
+  }
+}

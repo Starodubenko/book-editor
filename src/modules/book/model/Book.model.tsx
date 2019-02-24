@@ -1,6 +1,5 @@
-import {AbstractEntity} from "../../common/model/AbstractEntity.model";
+import {AbstractEntity, Publisher} from "@app/common";
 import {Author} from "../../author/model/Author.model";
-import {Publisher} from "../../common/model/Publisher.model";
 
 export class Book extends AbstractEntity {
     /**
@@ -44,7 +43,7 @@ export class Book extends AbstractEntity {
     imageLink: string;
 
 
-    constructor(id: number,
+    constructor(id: string,
                 title: string,
                 authors: Author[],
                 pageCount: number,
