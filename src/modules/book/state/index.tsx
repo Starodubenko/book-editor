@@ -1,17 +1,17 @@
 import {createSlice, PayloadAction} from 'redux-starter-kit';
 import {CaseReducer, CaseReducersMapObject} from "redux-starter-kit/src/createReducer";
 import {Action} from "redux-actions";
-import {AuthorState} from "../model/AuthorState.model";
-import {Author} from "../model/Author.model";
+import {BookState} from "../model/BookState.model";
+import {Book} from "../model/Book.model";
 import {AbstractEntity} from "../../common/model/AbstractEntity.model";
 
 export interface IAuthorActionHandlers extends CaseReducersMapObject {
-    create: CaseReducer<AuthorState, Action<Author>>;
-    update: CaseReducer<AuthorState, Action<Author>>;
-    remove: CaseReducer<AuthorState, Action<AbstractEntity>>;
+    create: CaseReducer<BookState, Action<Book>>;
+    update: CaseReducer<BookState, Action<Book>>;
+    remove: CaseReducer<BookState, Action<AbstractEntity>>;
 }
 
-export const authorActionsMap: IAuthorActionHandlers = {
+export const bookActionsMap: IAuthorActionHandlers = {
     create: (state, action) => {
         // const todo = action.payload;
         // state.push(todo);
@@ -28,8 +28,8 @@ export const authorActionsMap: IAuthorActionHandlers = {
     }
 };
 
-export const authorSlice = createSlice<AuthorState, PayloadAction<Author>, IAuthorActionHandlers>({
+export const bookSlice = createSlice<BookState, PayloadAction<Book>, IAuthorActionHandlers>({
     slice: 'author',
-    initialState: new AuthorState([]),
-    reducers: authorActionsMap,
+    initialState: new BookState([]),
+    reducers: bookActionsMap,
 });
