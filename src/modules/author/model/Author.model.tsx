@@ -1,4 +1,5 @@
-import {AbstractEntity} from "@app/common";
+import {AbstractEntity} from "../../common";
+import {Book} from "../../book/model/Book.model";
 
 export class Author extends AbstractEntity {
     /**
@@ -11,9 +12,15 @@ export class Author extends AbstractEntity {
     */
     surname: string;
 
-    constructor(id: string, name: string, surname: string) {
+    /**
+        Books of the author
+     */
+    books: Book[];
+
+    constructor(id: string, name: string, surname: string, books: Book[] = []) {
         super(id);
         this.name = name;
         this.surname = surname;
+        this.books = books;
     }
 }

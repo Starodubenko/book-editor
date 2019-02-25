@@ -1,4 +1,4 @@
-import {AbstractEntity, Publisher} from "@app/common";
+import {AbstractEntity, Publisher} from "../../common";
 import {Author} from "../../author/model/Author.model";
 
 export class Book extends AbstractEntity {

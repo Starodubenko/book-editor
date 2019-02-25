@@ -1,35 +1,47 @@
-import {createSlice, PayloadAction} from 'redux-starter-kit';
-import {CaseReducer, CaseReducersMapObject} from "redux-starter-kit/src/createReducer";
-import {Action} from "redux-actions";
-import {AbstractEntity} from "@app/common";
-import {BookState} from "../model/BookState.model";
 import {Book} from "../model/Book.model";
+import {many, Model, SessionWithModels} from "redux-orm";
+import {Author} from "../../author/model/Author.model";
+import {Action} from "redux-actions";
+import {AppEntitiesState} from "../../common";
+import {bookReducer} from "./reducer";
+import {NS} from "./constants";
 
-export interface IAuthorActionHandlers extends CaseReducersMapObject {
-    create: CaseReducer<BookState, Action<Book>>;
-    update: CaseReducer<BookState, Action<Book>>;
-    remove: CaseReducer<BookState, Action<AbstractEntity>>;
-}
 
-export const bookActionsMap: IAuthorActionHandlers = {
-    create: (state, action) => {
-        // const todo = action.payload;
-        // state.push(todo);
-    },
-    update: (state, action) => {
-        // const index = action.payload;
-        // const todo = state[index];
-        // todo.completed = !todo.completed;
-    },
-    remove: (state, action) => {
-        // const index = action.payload;
-        // const todo = state[index];
-        // todo.completed = !todo.completed;
+export class AuthorSchema extends Model<Author> {
+    static get fields() {
+        return {
+            books: many('Book')
+        }
     }
-};
 
-export const bookSlice = createSlice<BookState, PayloadAction<Book>, IAuthorActionHandlers>({
-    slice: 'author',
-    initialState: new BookState([]),
-    reducers: bookActionsMap,
-});
+    static reducer(action: Action<Author>, model: any, session: SessionWithModels<AppEntitiesState>) {
+        switch(action.type) {
+            case 'author/update': {
+                session.Author.create(action.payload);
+            }
+        }
+        // create
+        // update
+        // remove
+    }
+}
+AuthorSchema.modelName = 'Author';
+
+export class BookSchema extends Model<Book> {
+    static get fields() {
+        return {
+            authors: many('Author')
+        }
+    }
+}
+BookSchema.modelName = NS;
+BookSchema.reducer = bookReducer;
+
+
+
+//todo переписать функцию reducer на отдельные типизируемые обработчики
+//todo написать селекторы для получения сущностей
+//todo написать экшны для манипуляции сущностями
+//todo добавить конфиг в webpack чтоб были красивые импорты из app модулей
+//todo
+

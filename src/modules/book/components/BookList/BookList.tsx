@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {AppState} from "@app/common";
+import {AppState} from "../../../common";
 
 import s from "../BookList.module.scss";
 

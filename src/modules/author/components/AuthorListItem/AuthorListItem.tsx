@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {AppState} from "@app/common";
 
 import s from "../AuthorListItem.module.scss";
+import {AppState} from "../../../common";
 
 interface InputProps {}
 

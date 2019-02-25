@@ -2,14 +2,14 @@ import {History} from 'history';
 import {configureStore, getDefaultMiddleware} from 'redux-starter-kit';
 import {combineReducers} from 'redux';
 import {routerMiddleware} from 'connected-react-router'
-import {AppState} from "@app/common";
-import {createRouterReducer} from './router';
-import {authorSlice} from './appReducers';
+import {createRouterReducer} from '../../boot/router';
+import {AppState} from "../common";
+import {ormReducer} from "./store.orm";
 
 export function configureAppStore(history: History, preloadedState: any = {}) {
     const rootReducer = combineReducers<AppState>({
         ...createRouterReducer(history),
-        [authorSlice.slice]: authorSlice.reducer
+        entities: ormReducer
     });
 
     const store = configureStore({
@@ -22,9 +22,9 @@ export function configureAppStore(history: History, preloadedState: any = {}) {
         enhancers: []
     });
 
-    if (process.env.NODE_ENV !== 'production' && module.hot) {
-        module.hot.accept('./appReducers', () => store.replaceReducer(rootReducer))
-    }
+    // if (process.env.NODE_ENV !== 'production' && module.hot) {
+    //     module.hot.accept('./appReducers', () => store.replaceReducer(rootReducer))
+    // }
 
     return store
 }

@@ -12,6 +12,7 @@
     "react-router": "^4.3.1",
     "react-scripts": "2.1.5",
     "redux-actions": "^2.6.4",
+    "redux-orm": "^0.12.2",
     "redux-starter-kit": "^0.4.3"
   },
   "scripts": {
@@ -38,6 +39,7 @@
     "@types/react-router": "^4.4.4",
     "@types/react-router-redux": "^5.0.18",
     "@types/redux-actions": "^2.3.2",
+    "@types/redux-orm": "^0.9.1",
     "@types/webpack-env": "^1.13.7",
     "html-webpack-plugin": "^3.2.0",
     "redux-devtools-extension": "^2.13.8",
