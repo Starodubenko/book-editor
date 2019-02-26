@@ -1,8 +1,11 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {AppState} from "../../../common";
+import {BookListItem} from '../BookListItem'
+import {Book} from "../../model/Book.model";
+import {bookListSelector} from "../../state/selectors";
 
-import s from "../BookList.module.scss";
+import s from "./BookList.module.scss";
 
 interface InputProps {}
 
