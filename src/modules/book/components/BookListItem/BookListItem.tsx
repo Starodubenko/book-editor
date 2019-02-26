@@ -31,6 +31,8 @@ const mapStateToProps = (state: AppState, ownProps: InputProps): StateProps => {
   return {};
 };
 
-const mapDispatchToProps: DispatchProps = {};
+const mapDispatchToProps: DispatchProps = {
+    deleteBookAction
+};
 
 export const BookListItem = connect<StateProps, DispatchProps, InputProps, AppState>(mapStateToProps, mapDispatchToProps)(BookListItemComponent);

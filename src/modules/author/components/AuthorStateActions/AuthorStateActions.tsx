@@ -5,7 +5,7 @@ import s from './AuthorStateActions.module.scss';
 import {authorSlice} from "../../state";
 import {Author} from "../../model/Author.model";
 import {Book} from "../../../book/model/Book.model";
-import {createBookAction} from '../../../book/state/reducer';
+import {createBookAction} from "../../../book/state/actions";
 
 
 interface InputProps {}

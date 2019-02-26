@@ -1,29 +1,23 @@
 import {Book} from "../model/Book.model";
-import {AppEntitiesState, ReduxOrmModelReducer, createReduxOrmModelReducer} from "../../common";
-import {createAction} from "redux-actions";
+import {AppEntitiesState, createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../common";
+import {BookCreateActionType, BookUpdateActionType, BookDeleteActionType} from "./actions";
 
 export interface IBookActionHandlers {
-    'Book/create': ReduxOrmModelReducer<Book, AppEntitiesState>;
-    update: ReduxOrmModelReducer<Book, AppEntitiesState>;
-    remove: ReduxOrmModelReducer<Book, AppEntitiesState>;
+    [BookCreateActionType]: ReduxOrmModelReducer<Book, AppEntitiesState>;
+    [BookUpdateActionType]: ReduxOrmModelReducer<Book, AppEntitiesState>;
+    [BookDeleteActionType]: ReduxOrmModelReducer<string, AppEntitiesState>;
 }
 
 export const bookActionsMap: IBookActionHandlers = {
-    'Book/create': (action, model, session) => {
-        model.create(action.payload)
+    [BookCreateActionType]: (action, model, session) => {
+        model.create(action.payload);
     },
-    update: (action, model, session) => {
-        // const index = action.payload;
-        // const todo = state[index];
-        // todo.completed = !todo.completed;
+    [BookUpdateActionType]: (action, model, session) => {
+        model.withId(action.payload.id).update(action.payload)
     },
-    remove: (action, model, session) => {
-        // const index = action.payload;
-        // const todo = state[index];
-        // todo.completed = !todo.completed;
+    [BookDeleteActionType]: (action, model, session) => {
+        model.withId(action.payload).delete();
     }
 };
 
 export const bookReducer = createReduxOrmModelReducer<IBookActionHandlers, Book, AppEntitiesState>(bookActionsMap);
-
-export const createBookAction = createAction('Book/create');
