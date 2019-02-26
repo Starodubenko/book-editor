@@ -21,8 +21,7 @@ interface DispatchProps {
 
 type Props = StateProps & DispatchProps & InputProps
 
-interface OwnState {
-}
+interface OwnState {}
 
 export class AuthorStateActionsComponent extends Component<Props, OwnState> {
 

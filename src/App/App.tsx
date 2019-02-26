@@ -7,7 +7,8 @@ export class App extends Component {
   render() {
     return (
       <div className={s.Root}>
-        <AuthorStateActions />
+        <AuthorStateActions/>
+        <BookList />
       </div>
     );
   }
