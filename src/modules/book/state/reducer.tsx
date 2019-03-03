@@ -1,6 +1,7 @@
 import {Book} from "../model/Book.model";
-import {AppEntitiesState, createReduxOrmModelReducer, ReduxOrmModelReducer} from "../../common";
-import {BookCreateActionType, BookUpdateActionType, BookDeleteActionType} from "./actions";
+import {AppEntitiesState, createReduxOrmModelReducer, Publisher, ReduxOrmModelReducer} from "../../common";
+import {BookCreateActionType, BookDeleteActionType, BookUpdateActionType} from "./actions";
+import {Author} from "../../author/model/Author.model";
 
 export interface IBookActionHandlers {
     [BookCreateActionType]: ReduxOrmModelReducer<Book, AppEntitiesState>;
@@ -10,7 +11,24 @@ export interface IBookActionHandlers {
 
 export const bookActionsMap: IBookActionHandlers = {
     [BookCreateActionType]: (action, model, session) => {
-        model.create(action.payload);
+        const authorIds = action.payload.authors.reduce((acc: Array<string>, author: Author) => {
+            session.Author.create(author);
+            acc.push(author.id);
+
+            return acc;
+        }, []);
+
+        session.Book.create(new Book(
+            'Book_' + Math.round(Math.random() * 10000),
+            'Book ',
+            // @ts-ignore
+            authorIds,
+            1,
+            new Publisher('Publisher_'+ Math.round(Math.random() * 10000), 'Publisher Name'),
+            'Book publication year',
+            'Release year',
+            'ISBN'
+        ));
     },
     [BookUpdateActionType]: (action, model, session) => {
         model.withId(action.payload.id).update(action.payload)

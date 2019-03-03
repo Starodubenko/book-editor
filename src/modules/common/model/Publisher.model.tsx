@@ -1,10 +1,14 @@
-export class Publisher {
+import {AbstractEntity} from "./AbstractEntity.model";
+
+export class Publisher extends AbstractEntity{
     /**
         Name of publisher
     */
     name: string;
 
-    constructor(name: string) {
+    constructor(id: string, name: string) {
+        super(id);
         this.name = name;
     }
 }
+

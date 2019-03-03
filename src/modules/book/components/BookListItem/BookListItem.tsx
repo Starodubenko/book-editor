@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {push} from "connected-react-router";
 import cx from "classnames";
 import {AppState} from "../../../common";
 import {Book} from "../../model/Book.model";
@@ -15,7 +16,8 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    deleteBookAction: any
+    deleteBookAction: any,
+    push: any
 }
 
 type Props = StateProps & DispatchProps & InputProps
@@ -27,12 +29,16 @@ export class BookListItemComponent extends Component<Props, OwnState> {
 
     static defaultProps = {};
 
-    handlerRemove = (id: string) => {
+    removeHandler = () => {
+        const {id} = this.props.book;
+
         this.props.deleteBookAction(id);
     };
 
-    handlerEdit = () => {
+    editHandler = () => {
+        const {id} = this.props.book;
 
+        this.props.push(`/${id}/edit`)
     };
 
     renderImageLink = (): JSX.Element => {
@@ -82,7 +88,6 @@ export class BookListItemComponent extends Component<Props, OwnState> {
 
     render() {
         const {
-            id,
             title,
             authors,
             pageCount,
@@ -107,8 +112,8 @@ export class BookListItemComponent extends Component<Props, OwnState> {
                     {this.renderISBN()}
                 </div>
                 <div className={s.actions}>
-                    <div className={s.remove} onClick={() => this.handlerRemove(id)}>Remove</div>
-                    <div className={s.edit} onClick={this.handlerEdit}>Edit</div>
+                    <div className={s.remove} onClick={this.removeHandler}>Remove</div>
+                    <div className={s.edit} onClick={this.editHandler}>Edit</div>
                 </div>
             </div>
         );
@@ -120,7 +125,8 @@ const mapStateToProps = (state: AppState, ownProps: InputProps): StateProps => {
 };
 
 const mapDispatchToProps: DispatchProps = {
-    deleteBookAction
+    deleteBookAction,
+    push
 };
 
 export const BookListItem = connect<StateProps, DispatchProps, InputProps, AppState>(mapStateToProps, mapDispatchToProps)(BookListItemComponent);

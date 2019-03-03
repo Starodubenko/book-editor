@@ -10,7 +10,7 @@ export const bookListSelector = (appState: AppState) => createSelector(
             const obj = book.ref;
 
             return Object.assign({}, obj, {
-                books: book.authors.toRefArray().map(author => author.name),
+                authors: book.authors.toRefArray().map(author => author.name),
             });
         });
     }
@@ -20,10 +20,11 @@ export const bookByIdSelector = (appState: AppState, id: string) => createSelect
     appStateOrm,
     dbStateSelector,
     session => {
-        const obj = session.Book.withId(id).ref;
+        const model = session.Book.withId(id);
+        const obj = model.ref;
 
         return Object.assign({}, obj, {
-            books: obj.authors.toRefArray().map(author => author.name),
+            authors: model.authors.toRefArray().map(author => author.name),
         });
     }
 )(appState.entities);
