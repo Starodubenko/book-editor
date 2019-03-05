@@ -15,7 +15,7 @@ export class Author extends AbstractEntity {
     /**
         Books of the author
      */
-    books: Book[];
+    books: Book[] | string[];
 
     constructor(id: string, name: string, surname: string, books: Book[] = []) {
         super(id);

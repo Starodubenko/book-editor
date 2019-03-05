@@ -1,16 +1,31 @@
-import {createSelector} from "redux-starter-kit";
+import {createSelector} from "redux-orm";
+import {appStateOrm, dbStateSelector} from "../../store/store.orm";
+import {AppState} from "../../common";
 
+export const bookListSelector = (appState: AppState) => createSelector(
+    appStateOrm,
+    dbStateSelector,
+    session => {
+        // @ts-ignore
+        return session.Book.all().map(book => {
+            const obj = book.ref;
 
-const getSubtotal = createSelector(
-    ['shop.items'],
-    items => {
-        // return value here
+            return Object.assign({}, obj, {
+                authors: book.authors.toRefArray().map(author => author.name),
+            });
+        });
     }
-)
+)(appState.entities);
 
-const getTax = createSelector(
-    [getSubtotal, 'shop.taxPercent'],
-    (subtotal, taxPercent) => {
-        // return value here
+export const bookByIdSelector = (appState: AppState, id: string) => createSelector(
+    appStateOrm,
+    dbStateSelector,
+    session => {
+        const model = session.Book.withId(id);
+        const obj = model.ref;
+
+        return Object.assign({}, obj, {
+            authors: model.authors.toRefArray().map(author => author.name),
+        });
     }
-)
+)(appState.entities);

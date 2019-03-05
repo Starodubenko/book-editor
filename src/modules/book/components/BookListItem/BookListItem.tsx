@@ -2,11 +2,14 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {push} from "connected-react-router";
 import cx from "classnames";
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+// import { withStyles } from '@material-ui/core/styles';
 import {AppState} from "../../../common";
 import {Book} from "../../model/Book.model";
-import {deleteBookAction} from "../../state/actions";
 
 import s from "./BookListItem.module.scss";
+import {deleteBookAction} from "../../state/actions";
 
 interface InputProps {
     book: Book;
@@ -24,6 +27,15 @@ type Props = StateProps & DispatchProps & InputProps
 
 interface OwnState {
 }
+
+const FieldView = ({name, value}): JSX.Element => {
+    return (
+        <div className={cx(s.field)}>
+            <div className={s.fieldName}>{name}</div>
+            <span className={s.fieldValue}>{value}</span>
+        </div>
+    )
+};
 
 export class BookListItemComponent extends Component<Props, OwnState> {
 
@@ -43,17 +55,16 @@ export class BookListItemComponent extends Component<Props, OwnState> {
 
     renderImageLink = (): JSX.Element => {
         const {imageLink} = this.props.book;
+        const link = imageLink || './images.jpeg';
 
-        return imageLink ? <img src={imageLink} className={s.imgBook}/> : <div className={s.withoutImg}/>
+        return <img src={link} className={s.imgBook}/>
     };
 
     renderPublisher = (): JSX.Element => {
         const {publisher} = this.props.book;
 
         return publisher && (
-            <div className={cx(s.field, s.publisher)}>
-                {publisher.name}
-            </div>
+            <FieldView name="Название издательства:" value={publisher.name} />
         )
     };
 
@@ -61,9 +72,7 @@ export class BookListItemComponent extends Component<Props, OwnState> {
         const {publicationYear} = this.props.book;
 
         return publicationYear && (
-            <div className={cx(s.field, s.publisher)}>
-                {publicationYear}
-            </div>
+            <FieldView name="Год публикации:" value={publicationYear} />
         )
     };
 
@@ -71,19 +80,14 @@ export class BookListItemComponent extends Component<Props, OwnState> {
         const {releaseYear} = this.props.book;
 
         return releaseYear && (
-            <div className={cx(s.field, s.publisher)}>
-                {releaseYear}
-            </div>
+            <FieldView name="Дата выхода в тираж:" value={releaseYear} />
         )
     };
 
     renderISBN = (): JSX.Element => {
         const {isbn} = this.props.book;
 
-        return isbn && (<div className={cx(s.field, s.isbn)}>
-            {isbn}
-        </div>)
-
+        return isbn && (<FieldView name="ISBN:" value={isbn} />)
     };
 
     render() {
@@ -94,28 +98,35 @@ export class BookListItemComponent extends Component<Props, OwnState> {
         } = this.props.book;
 
         return (
-            <div className={s.book}>
-                {this.renderImageLink()}
-                <div className={s.bookInformation}>
-                    <div className={cx(s.field, s.title)}>
-                        {title}
+            <Paper className={s.book}>
+                <div className={s.content}>
+                    {this.renderImageLink()}
+                    <div className={s.bookInformation}>
+                        <FieldView name="Заголовок:" value={title} />
+                        <FieldView name="Cписок авторов:" value={authors} />
+                        <FieldView name="Количество страпниц:" value={pageCount} />
+
+                        {this.renderPublisher()}
+                        {this.renderPublicationYear()}
+                        {this.renderReleaseYear()}
+                        {this.renderISBN()}
                     </div>
-                    <div className={cx(s.field, s.authorsFI)}>
-                        {authors}
-                    </div>
-                    <div className={cx(s.field, s.pageCounter)}>
-                        {pageCount}
-                    </div>
-                    {this.renderPublisher()}
-                    {this.renderPublicationYear()}
-                    {this.renderReleaseYear()}
-                    {this.renderISBN()}
                 </div>
                 <div className={s.actions}>
-                    <div className={s.remove} onClick={this.removeHandler}>Remove</div>
-                    <div className={s.edit} onClick={this.editHandler}>Edit</div>
+                    <Button
+                        className={s.remove}
+                        onClick={this.removeHandler}
+                        variant="outlined"
+                        color="secondary"
+                    >Remove</Button>
+                    <Button
+                        className={s.edit}
+                        onClick={this.editHandler}
+                        variant="outlined"
+                        color="primary"
+                    >Edit</Button>
                 </div>
-            </div>
+            </Paper>
         );
     }
 }
