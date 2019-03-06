@@ -3,5 +3,6 @@ import {AppEntitiesState} from "./AppEntitiesState.interface";
 
 export interface AppState {
     router: RouterState,
-    entities: AppEntitiesState
+    entities: AppEntitiesState,
+    form: any, //todo add the right type
 }
