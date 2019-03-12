@@ -10,7 +10,7 @@ export class Book extends AbstractEntity {
     /**
         List of authors, at least one author
     */
-    authors: Author[] | string[];
+    authors: Author[];
 
     /**
         Page count, between 1 and 10000

@@ -23,4 +23,13 @@ export class Author extends AbstractEntity {
         this.surname = surname;
         this.books = books;
     }
+
+    toString(): string {
+        return `${this.name} ${this.surname}`;
+    }
+
+
+    valueOf(): string {
+        return `${this.name} ${this.surname}`;
+    }
 }

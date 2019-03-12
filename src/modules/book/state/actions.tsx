@@ -8,3 +8,8 @@ export const BookDeleteActionType = 'Book/delete';
 export const createBookAction = createAction<Book>(BookCreateActionType);
 export const updateBookAction = createAction<Book>(BookUpdateActionType);
 export const deleteBookAction = createAction<Book>(BookDeleteActionType);
+
+
+export const BookEditActionType = 'Book/edit';
+
+export const editBookAction = createAction<Book>(BookEditActionType);

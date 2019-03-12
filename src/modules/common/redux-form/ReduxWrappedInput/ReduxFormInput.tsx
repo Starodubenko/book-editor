@@ -1,11 +1,13 @@
 import React, {Component, SyntheticEvent} from "react";
 import {TextField} from "@material-ui/core";
 import {Field} from "redux-form";
+import {extractStringValue} from "../utils";
 
 interface InputProps {
     id: string;
     name: string;
     label: string;
+    type?: 'password' | 'number' | 'search'
 }
 
 interface StateProps {
@@ -27,14 +29,15 @@ export class ReduxFormInput extends Component<Props, OwnState> {
     };
 
     render() {
-        const {id, name, label} = this.props;
+        const {id, name, label, type} = this.props;
 
         return (
             <Field name={name} component={({input: {name, value}}) => (
                 <TextField
                     id={id}
                     label={label}
-                    value={value}
+                    value={extractStringValue(value)}
+                    type={type}
                     margin="normal"
                     onChange={this.onFieldChange}
                 />

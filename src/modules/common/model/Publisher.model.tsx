@@ -1,6 +1,6 @@
 import {AbstractEntity} from "./AbstractEntity.model";
 
-export class Publisher extends AbstractEntity{
+export class Publisher extends AbstractEntity {
     /**
         Name of publisher
     */
@@ -9,6 +9,10 @@ export class Publisher extends AbstractEntity{
     constructor(id: string, name: string) {
         super(id);
         this.name = name;
+    }
+
+    toString() {
+        return this.name;
     }
 }
 

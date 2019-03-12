@@ -1,6 +1,7 @@
 import {createSelector} from "redux-orm";
 import {appStateOrm, dbStateSelector} from "../../store/store.orm";
 import {AppState} from "../../common";
+import {AuthorBuilder} from "../../author/model/Author.builder";
 
 export const bookListSelector = (appState: AppState) => createSelector(
     appStateOrm,
@@ -24,7 +25,7 @@ export const bookByIdSelector = (appState: AppState, id: string) => createSelect
         const obj = model.ref;
 
         return Object.assign({}, obj, {
-            authors: model.authors.toRefArray().map(author => author.name),
+            authors: model.authors.toRefArray().map(authorProps => AuthorBuilder.create(authorProps)),
         });
     }
 )(appState.entities);

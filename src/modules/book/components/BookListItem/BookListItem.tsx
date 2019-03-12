@@ -1,15 +1,13 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {push} from "connected-react-router";
 import cx from "classnames";
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-// import { withStyles } from '@material-ui/core/styles';
 import {AppState} from "../../../common";
 import {Book} from "../../model/Book.model";
 
 import s from "./BookListItem.module.scss";
-import {deleteBookAction} from "../../state/actions";
+import {deleteBookAction, editBookAction} from "../../state/actions";
 
 interface InputProps {
     book: Book;
@@ -20,7 +18,7 @@ interface StateProps {
 
 interface DispatchProps {
     deleteBookAction: any,
-    push: any
+    editBookAction: any
 }
 
 type Props = StateProps & DispatchProps & InputProps
@@ -50,7 +48,7 @@ export class BookListItemComponent extends Component<Props, OwnState> {
     editHandler = () => {
         const {id} = this.props.book;
 
-        this.props.push(`/${id}/edit`)
+        this.props.editBookAction(id)
     };
 
     renderImageLink = (): JSX.Element => {
@@ -137,7 +135,7 @@ const mapStateToProps = (state: AppState, ownProps: InputProps): StateProps => {
 
 const mapDispatchToProps: DispatchProps = {
     deleteBookAction,
-    push
+    editBookAction
 };
 
 export const BookListItem = connect<StateProps, DispatchProps, InputProps, AppState>(mapStateToProps, mapDispatchToProps)(BookListItemComponent);

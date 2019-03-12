@@ -6,6 +6,7 @@ import {createRouterReducer} from '../../boot/router';
 import {AppState} from "../common";
 import {ormReducer} from "./store.orm";
 import { reducer as formReducer } from 'redux-form';
+import {goToEditBookPage} from "../book/middleware";
 
 export function configureAppStore(history: History, preloadedState: any = {}) {
     const rootReducer = combineReducers<AppState>({
@@ -19,6 +20,7 @@ export function configureAppStore(history: History, preloadedState: any = {}) {
         middleware: [
             ...getDefaultMiddleware(),
             routerMiddleware(history),
+            goToEditBookPage
         ],
         preloadedState,
         enhancers: []
